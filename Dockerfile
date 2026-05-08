@@ -45,6 +45,12 @@ RUN dnf install -y --nogpgcheck jq \
     csmock-plugin-shellcheck-core \
     libicu \
     tini && \
+    # for sast-gitleaks-check task
+    git clone https://github.com/gitleaks/gitleaks.git && \
+    cd gitleaks && \
+    git reset --hard 8863af4 && \
+    make build && \
+    cd .. && \
     # for sast-unicode-check task
     tar -xzf ${PATH_TO_ART}/find-unicode-control-v0.1.tar.gz -C /tmp/ && \
     cp /tmp/find-unicode-control-0.1/find_unicode_control.py /usr/local/bin/ && \
